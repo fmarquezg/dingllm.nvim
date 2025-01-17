@@ -20,7 +20,7 @@ Add your API keys to your env (export it in zshrc or bashrc)
 
 ```lua
   {
-    'yacineMTB/dingllm.nvim',
+    'fmarquezg/dingllm.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local system_prompt =
