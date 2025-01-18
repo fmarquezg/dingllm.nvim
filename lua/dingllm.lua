@@ -159,7 +159,8 @@ function M.invoke_llm_and_stream_into_editor(opts, make_curl_args_fn, handle_dat
   local curr_event_state = nil
 
   local function parse_and_call(line)
-    print('fuck')
+    --print('fuck')
+    print(line)
     --local event = line:match '^event: (.+)$'
     local event = line:match '^event: (.+)$'
     if event then
