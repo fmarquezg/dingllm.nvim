@@ -159,19 +159,22 @@ function M.invoke_llm_and_stream_into_editor(opts, make_curl_args_fn, handle_dat
   local curr_event_state = nil
 
   local function parse_and_call(line)
-    --print('fuck')
-    --print(line)
-    --local event = line:match '^event: (.+)$'
+    -- print("DEBUG - Got line:", line)  -- Uncomment for debugging
     local event = line:match '^event: (.+)$'
     if event then
-      curr_event_state = event
-      return
+        curr_event_state = event
+        return
     end
     local data_match = line:match '^data: (.+)$'
     if data_match then
-      handle_data_fn(data_match, curr_event_state)
+        handle_data_fn(data_match, curr_event_state)
+    else
+        -- If line doesn't match event/data patterns but looks like JSON, handle it directly
+        if line:match('^{.*}') then
+            handle_data_fn(line, nil)  -- Pass nil as event_state since it's not event-stream format
+        end
     end
-  end
+end
 
   if active_job then
     active_job:shutdown()
